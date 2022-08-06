@@ -1,8 +1,12 @@
-
 <html>
-    <head>
-        <link rel="stylesheet" href="style.css"/>
-    </head>
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <title>Retool Monster</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+  </head>
   <body>
     <h1>Retool Monster</h1>
 
@@ -11,7 +15,7 @@
 dc exec postgres bash -c "psql -U retool_internal_user -d hammerhead_production"</pre
     >
 
-    <h2>scp database dumb to your machine</h2>
+    <h2>scp database dump to your machine</h2>
     <pre>
 scp -i “YOUR_PEM_FILE.pem” YOUR_RETOOL_INSTANCE_URL:/home/ubuntu/retool-onpremise/retool_db_dump.sql ~/dev/retool_db_dump.sql
     </pre>
@@ -57,25 +61,9 @@ version: '3'
         POSTGRES_HOST=postgres
         POSTGRES_PORT=5432
         POSTGRES_PASSWORD=retool
-        RT_POSTGRES_USER=retool
-        RT_POSTGRES_HOST=postgres
-        RT_POSTGRES_PORT=5432
-        RT_POSTGRES_PASSWORD=retool
-
-        ## Set variables for the nginx server
-        # Change '' to retool.yourcompany.com to set up SSL properly
-        DOMAINS= -> http://api:3000
 
         ## Set key to encrypt and decrypt database passwords, etc.
         ENCRYPTION_KEY=DkDeuq/YB7Rdh3MacpxxajRBLu7SW+EmDzANA7Z6W8PuKntBPugqxR+x1LlnsbEB
-
-        ## Google SSO configuration
-        # CLIENT_ID=YOUR GOOGLE CLIENT ID
-
-        ## Okta configuration
-        # Do not include an https:// in the URL below
-        # OKTA_URL=dev-xyz.oktapreview.com
-        # OKTA_CLIENT_ID=YOUR OKTA CLIENT ID
 
         ## License key
         LICENSE_KEY=your_key_here
@@ -126,5 +114,13 @@ version: '3'
         
         return runAllQueries(queries)</pre
     >
+    <h2>pass data into triggered query</h2>
+    <pre>
+        query1.trigger({
+            additionalScope: {
+                yourVarName: "someValue"
+            }
+        })
+    </pre>
   </body>
 </html>
