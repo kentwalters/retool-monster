@@ -1,4 +1,8 @@
+
 <html>
+    <head>
+        <link rel="stylesheet" href="style.css"/>
+    </head>
   <body>
     <h1>Retool Monster</h1>
 
@@ -45,7 +49,7 @@ version: '3'
         NODE_ENV=production
 
         ## Set the JWT secret for the API server
-        JWT_SECRET=H2hCPETNELCe0lDmApRWuR7zkA0VJONWLNWSUUlX+aQLzk+l5bgaJNsB7WqFJNqmfQVqnZrEGTuRkbZGpx+jH/ryHYFSir7xzM2bnkKnKe3bxarGytcP65HffVm2RXQsVwRfZ8lHmVB+A2sYZPGSrOjugZw5E5ToaoF2wDU5x4FsCrGTnCOGEKBV8w+UOhp1Py/T9slmzGCDK+1EtrjwZuXHpeYQ/3lgdal1mV/RI4YJuT1gaKfw9ltbbCAZpS3R
+        JWT_SECRET=YOUR_JWT_SECRET
 
         ## Set and generate postgres credentials
         POSTGRES_DB=retool
@@ -77,5 +81,50 @@ version: '3'
         LICENSE_KEY=your_key_here
         COOKIE_INSECURE=true
     </pre>
+
+    <h2>simple promise loop</h2>
+    <pre>
+        const arr = [1,2,3,4,"last item"].map(row => {
+            return targetQuery.trigger({
+                additionalScope: {
+                    key1: row
+                }
+            });
+        });
+        
+        return Promise.all(arr)
+</pre
+    >
+    <h2>batching js queries</h2>
+    <pre>
+        // Queries in one batch will run in parallel.
+        // You can tweak batch size if you see server errors related to
+        // parallel execution
+        
+        const arr = _.range(200) //evaluates as [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
+        const batchSize = 50
+        
+        // Note, this is wrapped in a function so that we don't evaluate
+        // promises immediately, but only when we run them in a batch
+        const queries = arr.map((item) => () => {
+          return targetQuery.trigger({
+            additionalScope: {"key1":item} //passes the value being mapped over as keyName
+          });
+        })
+        
+        async function runAllQueries(queries) {
+          const batches = _.chunk(queries, batchSize);
+          const results = [];
+          while (batches.length) {
+            const batch = batches.shift();
+            // This map here actually runs the promise
+            const result = await Promise.all(batch.map(fn => fn()));
+            results.push(...result)
+          }
+          return results
+        }
+        
+        return runAllQueries(queries)</pre
+    >
   </body>
 </html>
