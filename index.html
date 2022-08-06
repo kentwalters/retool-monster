@@ -1,12 +1,27 @@
-<body>
-    <h1> Retool Monster</h1>
+<html>
+  <body>
+    <h1>Retool Monster</h1>
 
     <h2>exec into postgres</h2>
-    <pre>dc exec postgres bash -c "psql -U retool_internal_user -d hammerhead_production"</pre>
+    <pre>
+dc exec postgres bash -c "psql -U retool_internal_user -d hammerhead_production"</pre
+    >
+
+    <h2>scp database dumb to your machine</h2>
+    <pre>
+scp -i “YOUR_PEM_FILE.pem” YOUR_RETOOL_INSTANCE_URL:/home/ubuntu/retool-onpremise/retool_db_dump.sql ~/dev/retool_db_dump.sql
+    </pre>
+
+    <h2>completely nuke ec2 (or any machine's) docker</h2>
+    <pre>
+docker kill $(docker ps -q) && docker rm $(docker ps -a -q) && docker rmi $(docker images -q)</pre
+    >
 
     <h2>minimal docker-compose deployment</h2>
     <p>docker-compose.yml</p>
-    <pre>version: '3'
+
+    <pre>
+version: '3'
       services:
         api:
           image: tryretool/backend:latest
@@ -22,9 +37,10 @@
           env_file: ./docker.env
           volumes:
             - ./.db/retool:/var/lib/postgresql/data
-      </pre>
-      <p>docker.env</p>
-      <pre>
+      </pre
+    >
+    <p>docker.env</p>
+    <pre>
         ## Set node environment to production
         NODE_ENV=production
 
@@ -60,6 +76,6 @@
         ## License key
         LICENSE_KEY=your_key_here
         COOKIE_INSECURE=true
-      </pre>
-</div>
-</body>
+    </pre>
+  </body>
+</html>
