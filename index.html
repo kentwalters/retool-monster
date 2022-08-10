@@ -15,6 +15,9 @@
 dc exec postgres bash -c "psql -U retool_internal_user -d hammerhead_production"</pre
     >
 
+    <h2>dump postgres to the postgres container (because the postgres container has psql)</h2>
+    <pre>docker-compose exec postgres  pg_dump hammerhead_production --no-acl --no-owner --clean -U  retool_internal_user -f retool_dump.sql </pre>
+
     <h2>scp database dump to your machine</h2>
     <pre>
 scp -i “YOUR_PEM_FILE.pem” YOUR_RETOOL_INSTANCE_URL:/home/ubuntu/retool-onpremise/retool_db_dump.sql ~/dev/retool_db_dump.sql
