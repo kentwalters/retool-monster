@@ -1,10 +1,39 @@
 body {
-
+    background-color: #F5F5F5;
+    margin-left: 32px;
+    margin-right: 32px;
 
 }
 
+.center {
+    font-family: 'Inter', sans-serif;
+
+    min-width: 800px;
+    max-width: 1200px;
+    margin: 68px auto;
+    margin-bottom: 32px;
+}
+
 pre {
-    background-color: tan;
+    background-color: #211a10;
     border-radius: 4px;
-    padding: 8px;
+    color: #e8c99f;
+    padding: 16px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: large;
+}
+
+pre:not(:last-child) {
+    margin-bottom: 32px;
+}
+
+h1 {
+    font-weight: 800;
+}
+
+h2 {
+    font-weight: 400;
+    margin-bottom: 8px;
 }

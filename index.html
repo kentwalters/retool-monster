@@ -2,12 +2,18 @@
   <head>
     <link rel="stylesheet" href="style.css" />
     <title>Retool Monster</title>
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1"
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@1,600&family=DM+Serif+Display&family=Inter:wght@600;700;800&display=swap"
+      rel="stylesheet"
     />
   </head>
   <body>
+    <div class="center">
     <h1>Retool Monster</h1>
 
     <h2>exec into postgres</h2>
@@ -15,8 +21,13 @@
 dc exec postgres bash -c "psql -U retool_internal_user -d hammerhead_production"</pre
     >
 
-    <h2>dump postgres to the postgres container (because the postgres container has psql)</h2>
-    <pre>docker-compose exec postgres  pg_dump hammerhead_production --no-acl --no-owner --clean -U  retool_internal_user -f retool_dump.sql </pre>
+    <h2>
+      dump postgres to the postgres container (because the postgres container
+      has psql)
+    </h2>
+    <pre>
+docker-compose exec postgres  pg_dump hammerhead_production --no-acl --no-owner --clean -U  retool_internal_user -f retool_dump.sql </pre
+    >
 
     <h2>scp database dump to your machine</h2>
     <pre>
@@ -29,7 +40,9 @@ docker kill $(docker ps -q) && docker rm $(docker ps -a -q) && docker rmi $(dock
     >
 
     <h2>install docker/docker-compose on RHEL</h2>
-    <pre>https://help.hcltechsw.com/bigfix/10.0/mcm/MCM/Config/install_docker_ce_docker_compose_on_rhel_8.html</pre>
+    <pre>
+https://help.hcltechsw.com/bigfix/10.0/mcm/MCM/Config/install_docker_ce_docker_compose_on_rhel_8.html</pre
+    >
 
     <h2>minimal docker-compose deployment</h2>
     <p>docker-compose.yml</p>
@@ -128,5 +141,6 @@ version: '3'
             }
         })
     </pre>
+  </div>
   </body>
 </html>
