@@ -14,40 +14,43 @@
   </head>
   <body>
     <div class="center">
-    <h1>Retool Monster</h1>
+      <h1>Retool Monster</h1>
 
-    <h2>exec into postgres</h2>
-    <pre>
-dc exec postgres bash -c "psql -U retool_internal_user -d hammerhead_production"</pre
-    >
+      <h2>exec into postgres</h2>
 
-    <h2>
-      dump postgres to the postgres container (because the postgres container
-      has psql)
-    </h2>
-    <pre>
+      <pre>
+dc exec postgres bash -c "psql -U retool_internal_user -d hammerhead_production"
+<button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+</pre>
+
+      <h2>
+        dump postgres to the postgres container (because the postgres container
+        has psql)
+      </h2>
+      <pre>
 docker-compose exec postgres  pg_dump hammerhead_production --no-acl --no-owner --clean -U  retool_internal_user -f retool_dump.sql </pre
-    >
+      >
 
-    <h2>scp database dump to your machine</h2>
-    <pre>
+      <h2>scp database dump to your machine</h2>
+      <pre>
 scp -i “YOUR_PEM_FILE.pem” YOUR_RETOOL_INSTANCE_URL:/home/ubuntu/retool-onpremise/retool_db_dump.sql ~/dev/retool_db_dump.sql
-    </pre>
+    </pre
+      >
 
-    <h2>completely nuke ec2 (or any machine's) docker</h2>
-    <pre>
+      <h2>completely nuke ec2 (or any machine's) docker</h2>
+      <pre>
 docker kill $(docker ps -q) && docker rm $(docker ps -a -q) && docker rmi $(docker images -q)</pre
-    >
+      >
 
-    <h2>install docker/docker-compose on RHEL</h2>
-    <pre>
+      <h2>install docker/docker-compose on RHEL</h2>
+      <pre>
 https://help.hcltechsw.com/bigfix/10.0/mcm/MCM/Config/install_docker_ce_docker_compose_on_rhel_8.html</pre
-    >
+      >
 
-    <h2>minimal docker-compose deployment</h2>
-    <p>docker-compose.yml</p>
+      <h2>minimal docker-compose deployment</h2>
+      <p>docker-compose.yml</p>
 
-    <pre>
+      <pre>
 version: '3'
       services:
         api:
@@ -64,10 +67,9 @@ version: '3'
           env_file: ./docker.env
           volumes:
             - ./.db/retool:/var/lib/postgresql/data
-      </pre
-    >
-    <p>docker.env</p>
-    <pre>
+      </pre>
+      <p>docker.env</p>
+      <pre>
         ## Set node environment to production
         NODE_ENV=production
 
@@ -87,10 +89,11 @@ version: '3'
         ## License key
         LICENSE_KEY=your_key_here
         COOKIE_INSECURE=true
-    </pre>
+    </pre
+      >
 
-    <h2>simple promise loop</h2>
-    <pre>
+      <h2>simple promise loop</h2>
+      <pre>
         const arr = [1,2,3,4,"last item"].map(row => {
             return targetQuery.trigger({
                 additionalScope: {
@@ -101,9 +104,9 @@ version: '3'
         
         return Promise.all(arr)
 </pre
-    >
-    <h2>batching js queries</h2>
-    <pre>
+      >
+      <h2>batching js queries</h2>
+      <pre>
         // Queries in one batch will run in parallel.
         // You can tweak batch size if you see server errors related to
         // parallel execution
@@ -132,15 +135,39 @@ version: '3'
         }
         
         return runAllQueries(queries)</pre
-    >
-    <h2>pass data into triggered query</h2>
-    <pre>
+      >
+      <h2>pass data into triggered query</h2>
+      <pre>
         query1.trigger({
             additionalScope: {
                 yourVarName: "someValue"
             }
         })
-    </pre>
-  </div>
+    </pre
+      >
+      <h2>Retool Developer API</h2>
+    <p>API reference here: <a href="https://docs.retool.com/reference/api">https://docs.retool.com/reference/api</a></p>
+    <a>Need to set this feature flag: <pre>Public Resource Developer API (HIDDEN)</pre></a>
+    <p>Need to create a token with Resources Scopes</p>
+    <img src="images/token.png"
+    </div>
+    
   </body>
+  <script>
+    function copyToClipboard(button) {
+      const codeElement = button.parentNode;
+      const textToCopy = codeElement.textContent.trim();
+      navigator.clipboard.writeText(textToCopy);
+
+      const toastMessage = document.querySelector(".toast-message");
+      toastMessage.innerHTML = "Copied";
+      toastMessage.style.display = "block";
+      setTimeout(function () {
+        toastMessage.style.opacity = "1";
+      }, 100);
+      setTimeout(function () {
+        toastMessage.style.opacity = "0";
+      }, 1500);
+    }
+  </script>
 </html>
