@@ -12,7 +12,9 @@ body {
     margin: 68px auto;
     margin-bottom: 32px;
 }
-
+img {
+  border-radius: 4px;
+}
 pre {
     background-color: #211a10;
     border-radius: 4px;
