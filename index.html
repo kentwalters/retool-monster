@@ -150,6 +150,29 @@ version: '3'
     <a>Need to set this feature flag: <pre>Public Resource Developer API (HIDDEN)</pre></a>
     <p>Need to create a token with Resources Scopes</p>
     <img src="images/token.png">
+
+    <h2>Remove black header bar</h2>
+    <pre>
+      .showStatusBar {
+        height: 100% !important
+      }
+      
+      .presentation-canvas-padding .retool-canvas-container--with-navigation {
+         height: 100% !important;
+      }
+      
+      .retool-canvas-container .retool-canvas-container--with-navigation {
+        height: 100% !important
+      }
+      
+      ._iYmYp ._UQiEf ._DLewn ._MocLz {
+        height: 100% !important;
+      }
+      
+      ._j2NiX {
+        display: none;
+      }
+    </pre>
     
     <h2>env vars</h2>
     <pre>
@@ -565,6 +588,9 @@ version: '3'
       RETOOL_SDK_QUERY_DEFAULT_TIMEOUT_MS
       RETOOL_SDK_QUERY_CACHE_TTL_MS
     </pre>
+    </div>
+    <div>
+
     </div>
     
   </body>
