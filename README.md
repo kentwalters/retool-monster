@@ -1,1 +1,1 @@
-[https://www.retool.monster/](https://www.retool.monster/)
+https://retool-monster.vercel.app/
